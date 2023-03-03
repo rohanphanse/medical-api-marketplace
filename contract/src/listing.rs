@@ -1,9 +1,10 @@
 use near_sdk::borsh::{ self, BorshDeserialize, BorshSerialize };
 use near_sdk::{ AccountId, json_types::U128 };
+use serde::{ Serialize, Deserialize };
 
 pub type ListingId = String;
 
-#[derive(BorshDeserialize, BorshSerialize)]
+#[derive(BorshDeserialize, BorshSerialize, Debug, Serialize, Deserialize)]
 pub struct Listing {
     seller: AccountId,
     price: U128,

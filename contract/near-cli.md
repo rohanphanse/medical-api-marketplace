@@ -45,22 +45,17 @@ near call medapi.rohanphanse.testnet add_listing '{"listing_id": "i", "price": "
 near view medapi.rohanphanse.testnet get_account_listing_ids '{"account_id": "rohanphanse.testnet"}'
 ```
 
-## Get listing seller (view)
+## Get listing (view)
 ```
-near view medapi.rohanphanse.testnet get_listing_seller '{"listing_id": "id123"}'
-```
-
-## Get listing expires after (view)
-```
-near view medapi.rohanphanse.testnet get_listing_expires_after '{"listing_id": "id2"}'
-```
-
-## Get listing price (view)
-```
-near view medapi.rohanphanse.testnet get_listing_price '{"listing_id": "id123"}'
+near view medapi.rohanphanse.testnet get_listing '{"listing_id": "i"}'
 ```
 
 ## Purchase listing (call)
 ```
-near call medapi.rohanphanse.testnet purchase_listing '{"listing_id": "i"}' --accountId rohanphanse.testnet --amount 10
+near call medapi.rohanphanse.testnet purchase_listing '{"listing_id": "i"}' --accountId rohanphanse.testnet --amount 0.01
+```
+
+## Get account listing receipt (view)
+```
+near view medapi.rohanphanse.testnet get_account_listing_receipt '{"account_id": "rohanphanse.testnet", "listing_id": "i"}'
 ```

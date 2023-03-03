@@ -1,6 +1,7 @@
 use near_sdk::borsh::{ self, BorshDeserialize, BorshSerialize };
+use serde::{ Serialize, Deserialize };
 
-#[derive(BorshDeserialize, BorshSerialize, PartialEq)]
+#[derive(BorshDeserialize, BorshSerialize, PartialEq, Debug, Serialize, Deserialize)]
 pub struct Receipt {
     purchased_at: u64,
 }

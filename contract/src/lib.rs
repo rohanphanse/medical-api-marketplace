@@ -73,35 +73,15 @@ impl Contract {
         }
     }
 
-    pub fn get_listing_seller(&self, listing_id: ListingId) -> Option<AccountId> {
-        if let Some(listing) = self.listing_map.get(&listing_id) {
-            return Some(listing.get_seller());
-        } else {
-            return None;
-        }
-    }
-
-    pub fn get_listing_price(&self, listing_id: ListingId) -> Option<U128> {
-        if let Some(listing) = self.listing_map.get(&listing_id) {
-            return Some(listing.get_price());
-        } else {
-            return None;
-        }
-    }
-
-    pub fn get_listing_expires_after(&self, listing_id: ListingId) -> Option<u64> {
-        if let Some(listing) = self.listing_map.get(&listing_id) {
-            return Some(listing.get_expires_after());
-        } else {
-            return None;
-        }
+    pub fn get_listing(&self, listing_id: ListingId) -> Option<Listing> {
+        return self.listing_map.get(&listing_id);
     }
 
     #[payable]
     pub fn purchase_listing(&mut self, listing_id: ListingId) {
         let signer_id = env::signer_account_id();
         if let Some(receipts) = self.receipt_map.get(&signer_id) {
-            if let Some(receipt) = receipts.get(&listing_id) {
+            if let Some(_) = receipts.get(&listing_id) {
                 panic!("Already purchased listing with id {}!", listing_id);
             }
         }
@@ -118,6 +98,14 @@ impl Contract {
             self.receipt_map.insert(&signer_id, &receipts);
         } else {
             panic!("Cannot find listing with id {} :(", listing_id);
+        }
+    }
+
+    pub fn get_account_listing_receipt(&self, account_id: AccountId, listing_id: ListingId) -> Option<Receipt> {
+        if let Some(account_receipts) = self.receipt_map.get(&account_id) {
+            return account_receipts.get(&listing_id);
+        } else {
+            return None;
         }
     }
 }
@@ -158,8 +146,9 @@ mod tests {
             contract.get_account_listing_ids("alice.testnet".parse::<AccountId>().unwrap()),
             vec!["my id", "my id 2"]
         );
+        println!("{:?}", contract.get_listing("my id 2".to_string()));
         assert_eq!(
-            contract.get_listing_price("my id 2".to_string()).unwrap(),
+            contract.get_listing("my id 2".to_string()).unwrap().get_price(),
             U128(10)
         );
     }

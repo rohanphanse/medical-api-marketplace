@@ -1,6 +1,6 @@
 use near_sdk::borsh::{ self, BorshDeserialize, BorshSerialize };
 
-#[derive(BorshDeserialize, BorshSerialize, PartialEq)]
+#[derive(BorshDeserialize, BorshSerialize, PartialEq, Debug)]
 pub struct AccountInfo {
     public_key: String,
 }
