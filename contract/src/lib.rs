@@ -46,6 +46,11 @@ impl Contract {
         }
     }
 
+    pub fn delete_account_info(&mut self) {
+        let account_id = env::signer_account_id();
+        self.account_map.remove(&account_id);
+    }
+
     pub fn add_listing(&mut self, listing_id: ListingId, price: U128, expires_after: u64, call_limit: i32, title: String, description: String) {
         let signer_id = env::signer_account_id();
         if let Some(_) = self.listing_map.get(&listing_id) {
